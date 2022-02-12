@@ -24,4 +24,17 @@ from tensorflow.python import ipu
 ```
 **NOTE:** The `ipu` module must be imported directly rather than accessing it through the top-level Tensorflow module to function properly.
 
-The next action to take is to prepare the dataset in a fashion where it can recieve
+The next action to take is to prepare the dataset in a fashion where the IPU can recieve appropriately sized tensors, as the IPU framework which leverages the Poplar software stack does not support using tensors with shapes that are not known when the model is compiled. To successfully complete this preperation, the sizes of the datasets must be divisible by the batch size. The following code allows for this:
+```python
+def make_divisible(number, divisor):
+    return number - number % divisor
+    
+train_data_len = x.train.shape[0]
+train_data_len = make_divisible(train_data_len, batch_size)
+x_train, y_train = x_train[:train_data_len], y_train[:train_data_len]
+
+test_data_len = x_test.shape[0]
+test_data_len = make_divisible(test_data_len, batch_size)
+x_test, y_test = x_test[:test_data_len], y_test[:test_data_len]
+```
+
