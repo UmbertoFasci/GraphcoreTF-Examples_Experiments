@@ -17,3 +17,8 @@ Additionally, I experienced a rapid increase in model accuracy per epoch in comp
 These arguments defined in the parser function in `utils.py` such as the `--use-ipu` and `--pipelining` flags allow the user to run the Keras model on the cloud IPU and adopt the pipelining feature respectively. On an interesting note, the gradient accumulation count can be adjusted with the `--gradient-accumulation-count` flag.
 
 ## Running the cpu example on the IPU
+
+The first action to take when applying Graphcore's cloud IPU to this example is to include a new import:
+```python
+from tensorflow.python import ipu
+```
