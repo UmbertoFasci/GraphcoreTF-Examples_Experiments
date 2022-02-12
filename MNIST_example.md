@@ -18,6 +18,7 @@ These arguments defined in the parser function in `utils.py` such as the `--use-
 
 ## Running the CPU example on the IPU
 
+### Import the TensorFlow IPU module
 The first action to take when applying Graphcore's cloud IPU to this example is to include a new import:
 ```python
 from tensorflow.python import ipu
@@ -37,4 +38,6 @@ test_data_len = x_test.shape[0]
 test_data_len = make_divisible(test_data_len, batch_size)
 x_test, y_test = x_test[:test_data_len], y_test[:test_data_len]
 ```
+After this is implemented, we lose 32 training examples and 48 evaluation examples to make these datasets usable in this IPU framework.
 
+Future experiments will implement different approaches to preparing the data for training a Keras maodel on the IPU. These approaches include creating a `tf.data.Dataset` object which utilizes the data and calling the `.repeat()` method to create a looped version of the dataset. Also, padding the datasets with tensors of zeros (_will experiment with several padding configurations_), and setting the `sample_weight` to be a vector of 1's and 0's according to which values are real.
