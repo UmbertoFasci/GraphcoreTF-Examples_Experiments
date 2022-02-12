@@ -1,4 +1,4 @@
-# Graphcore MNIST example workthrough for TensorFlow
+# Graphcore MNIST example work-through for TensorFlow
 
 ## File architecture
 
@@ -25,6 +25,7 @@ from tensorflow.python import ipu
 ```
 **NOTE:** The `ipu` module must be imported directly rather than accessing it through the top-level Tensorflow module to function properly.
 
+## Preparing the dataset
 The next action to take is to prepare the dataset in a fashion where the IPU can recieve appropriately sized tensors, as the IPU framework which leverages the Poplar software stack does not support using tensors with shapes that are not known when the model is compiled. To successfully complete this preperation, the sizes of the datasets must be divisible by the batch size. The following code allows for this:
 ```python
 def make_divisible(number, divisor):
@@ -41,3 +42,39 @@ x_test, y_test = x_test[:test_data_len], y_test[:test_data_len]
 After this is implemented, we lose 32 training examples and 48 evaluation examples to make these datasets usable in this IPU framework.
 
 Future experiments will implement different approaches to preparing the data for training a Keras maodel on the IPU. These approaches include creating a `tf.data.Dataset` object which utilizes the data and calling the `.repeat()` method to create a looped version of the dataset. Also, padding the datasets with tensors of zeros (_will experiment with several padding configurations_), and setting the `sample_weight` to be a vector of 1's and 0's according to which values are real.
+
+## Adding IPU configuration
+
+As stated in the Graphcore example. to use the IPU, you must create an IPU session configuration. The following code accomplishes this:
+```python
+ipu_config = ipu.config.IPUConfig()
+ipu_config.auto_select_ipus = 1
+ipu_config.configure_ipu_system()
+```
+## Specify IPU strategy
+```python
+strategy = ipu.ipu_strategy.IPUStrategy
+```
+This strategy is a subclass of the `tf.disribute.strategy` which targets a system with one or more IPUs attached.
+
+## Wrap the model within the IPU strategy scope
+
+Wrapping the model within the scope of the `IPUStrategy` will ensure that they are placed on the IPU. The following code allows this:
+```python
+with strategy.scope():
+    # Model.__init__ takes two required arguments, inputs and outputs.
+    model = keras.Model(*model_fn())
+
+    # Compile our model with Stochastic Gradient Descent as an optimizer
+    # and Categorical Cross Entropy as a loss.
+    model.compile('sgd', 'categorical_crossentropy', metrics=["accuracy"])
+
+    model.summary()
+    print('\nTraining')
+    model.fit(x_train, y_train, epochs=3, batch_size=64)
+    print('\nEvaluation')
+    model.evaluate(x_test, y_test)
+```
+Above, the function `model_fn()` is already defined and readily reused within the IPU strategy wrapper.
+
+## Exaluating the model's performance compared to its original CPU configuration.
