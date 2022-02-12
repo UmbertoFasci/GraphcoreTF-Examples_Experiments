@@ -22,3 +22,6 @@ The first action to take when applying Graphcore's cloud IPU to this example is 
 ```python
 from tensorflow.python import ipu
 ```
+**NOTE:** The `ipu` module must be imported directly rather than accessing it through the top-level Tensorflow module to function properly.
+
+The next action to take is to prepare the dataset in a fashion where it can recieve
