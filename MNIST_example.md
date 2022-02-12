@@ -15,3 +15,5 @@ Additionally, I experienced a rapid increase in model accuracy per epoch in comp
 ## About the IPU specific arguments
 
 These arguments defined in the parser function in `utils.py` such as the `--use-ipu` and `--pipelining` flags allow the user to run the Keras model on the cloud IPU and adopt the pipelining feature respectively. On an interesting note, the gradient accumulation count can be adjusted with the `--gradient-accumulation-count` flag.
+
+## Running the cpu example on the IPU
