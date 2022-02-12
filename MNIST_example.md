@@ -1,4 +1,4 @@
-# Graphcore MNIST example for TensorFlow
+# Graphcore MNIST example workthrough for TensorFlow
 
 ## File architecture
 
