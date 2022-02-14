@@ -78,3 +78,5 @@ with strategy.scope():
 Above, the function `model_fn()` is already defined and readily reused within the IPU strategy wrapper.
 
 ## Exaluating the model's performance compared to its original CPU configuration.
+
+![CPU only](https://github.com/UmbertoFasci/GraphcoreTF-Examples_Experiments/blob/main/GraphcoreMNISTExmpAssets/HardwareMetricsCPU.png)
