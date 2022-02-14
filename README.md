@@ -5,3 +5,4 @@
 | |**Title**|**Description**|**File Link**|
 |-|---------|----------------|--------------|
 |1| **Graphcore MNIST IPU Example** |A simple example which proceeds to establish the basic syntax and usage of Graphcore's cloud IPU  technology with access through Spell.|[MNIST Example](https://github.com/UmbertoFasci/GraphcoreTF-Examples_Experiments/blob/main/MNIST_example.md)|
+|2|**Graphcore IPU CNN Training**|A tutorial which covers the use of IPUs with CNNs for image classification.|File Incoming|
