@@ -85,3 +85,4 @@ Above, the function `model_fn()` is already defined and readily reused within th
 ![Complete Example IPU Leveraged](https://github.com/UmbertoFasci/GraphcoreTF-Examples_Experiments/blob/main/GraphcoreMNISTExmpAssets/HardwareMetricsComplete.png)
 **CPU Example with IPU Wrapper**
 ![CPU example with IPU Wrapper](https://github.com/UmbertoFasci/GraphcoreTF-Examples_Experiments/blob/main/GraphcoreMNISTExmpAssets/HardwareMetricsIPU_no_parser_functions.png)
+#
