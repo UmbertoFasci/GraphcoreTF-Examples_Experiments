@@ -10,4 +10,4 @@
 ## List of Experiements
 | |**Title**|**Description**|**File Link**|
 |-|---------|---------------|-------------|
-|1|**Custom Loss Fundtion Handling**|A short test to experience the IPU wrapper capability with custom loss functions.|File Incoming|
+|1|**Custom Loss Function Handling**|A short test to experience the IPU wrapper capability with custom loss functions.|File Incoming|
